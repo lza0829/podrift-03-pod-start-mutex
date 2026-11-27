@@ -1,7 +1,7 @@
 from __future__ import annotations
 from fastapi import APIRouter
 from pydantic import BaseModel
-from app.db import db
+from app.db import db, tx
 from app.services.common import now_iso, row_dict
 
 router = APIRouter(tags=["重启策"])
@@ -20,7 +20,7 @@ def get_policy():
 
 @router.post("/重启策")
 def set_policy(body: PolicyIn):
-    with db() as conn:
+    with tx() as conn:
         backoff = body.backoff_sec
         if backoff is None:
             cur = conn.execute("SELECT backoff_sec FROM restart_policy WHERE id=1").fetchone()

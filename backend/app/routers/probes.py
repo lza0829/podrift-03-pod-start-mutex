@@ -1,7 +1,7 @@
 from __future__ import annotations
 from fastapi import APIRouter
 from pydantic import BaseModel
-from app.db import db
+from app.db import db, tx
 from app.services.common import now_iso, rows
 
 router = APIRouter(tags=["探针灯"])
@@ -28,7 +28,7 @@ def list_probes():
 
 @router.post("/探针/{pod_id}")
 def set_probe(pod_id: int, body: ProbePatch):
-    with db() as conn:
+    with tx() as conn:
         streak = body.fail_streak
         if streak is None:
             streak = 0 if body.color == "绿" else 1

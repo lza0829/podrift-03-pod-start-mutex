@@ -1,6 +1,6 @@
 from __future__ import annotations
 from fastapi import APIRouter
-from app.db import db
+from app.db import db, tx
 from app.services.common import now_iso, rows
 
 router = APIRouter(tags=["镜像轨"])
@@ -14,7 +14,7 @@ def list_images():
 
 @router.post("/镜像/{image_id}/推进拉取")
 def advance_pull(image_id: int):
-    with db() as conn:
+    with tx() as conn:
         img = conn.execute("SELECT * FROM images WHERE id=?", (image_id,)).fetchone()
         if not img:
             return {"错误": "镜像不存在"}

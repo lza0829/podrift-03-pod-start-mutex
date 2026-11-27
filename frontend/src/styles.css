@@ -169,6 +169,18 @@ th { color: var(--muted); font-weight: 600; font-size: 0.75rem; letter-spacing: 
 .stat .k { color: var(--muted); font-size: 0.75rem; letter-spacing: 0.06em; }
 .stat .v { font-family: var(--font-mono); font-size: 1.25rem; margin-top: 0.25rem; }
 
+.mono { font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); word-break: break-all; }
+.receipt {
+  margin: 0.6rem 0 0;
+  padding: 0.7rem 0.8rem;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--yellow);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  overflow-x: auto;
+}
+
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .rail { border-right: none; border-bottom: 1px solid var(--line); }
